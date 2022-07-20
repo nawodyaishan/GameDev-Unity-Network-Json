@@ -62,7 +62,7 @@ public class DownloadData : MonoBehaviour
     IEnumerator GetAlbumData()
     {
         var firstData = _allAlbums[0];
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture(firstData.thumbnailUrl);
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(firstData.thumbnailUrl+".png");
 
         yield return request.SendWebRequest();
 
@@ -70,7 +70,8 @@ public class DownloadData : MonoBehaviour
             Debug.Log(request.error);
         else
         {
-            loadedImage.texture = ((DownloadHandlerTexture) request.downloadHandler).texture;
+            // loadedImage.texture = ((DownloadHandlerTexture) request.downloadHandler).texture;
+            loadedImage.texture = DownloadHandlerTexture.GetContent(request);
             Debug.Log("Successfully Completed the request. Image Loaded");
         }
     }
