@@ -71,6 +71,7 @@ public class DownloadData : MonoBehaviour
         else
         {
             // loadedImage.texture = ((DownloadHandlerTexture) request.downloadHandler).texture;
+            
             loadedImage.texture = DownloadHandlerTexture.GetContent(request);
             Debug.Log("Successfully Completed the request. Image Loaded");
         }
