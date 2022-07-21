@@ -1,18 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using System.Collections;
 
 public class AssetBundleManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(GetAssetBundle());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator GetAssetBundle()
     {
-        
+        UnityWebRequest getAbWebRequest = UnityWebRequestAssetBundle.GetAssetBundle("https://www.my-server.com/myData.unity3d");
+        yield return getAbWebRequest.SendWebRequest();
+
+        if (getAbWebRequest.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(getAbWebRequest.error);
+        }
+        else
+        {
+            AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(getAbWebRequest);
+        }
     }
 }
