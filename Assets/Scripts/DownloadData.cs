@@ -46,6 +46,11 @@ public class DownloadData : MonoBehaviour
 
                 _allAlbums = JsonHelper.GetArray<AlbumData>(getRequest.downloadHandler.text);
                 StartCoroutine(GetAlbumData());
+
+
+                // var jsonText = getRequest.downloadHandler.text;
+                // AlbumData newPhoto = JsonUtility.FromJson<AlbumData>(jsonText);
+                // textMeshProUGUI.text = newPhoto.albumId.ToString();
             }
             else
             {
