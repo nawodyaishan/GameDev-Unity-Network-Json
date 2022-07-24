@@ -44,13 +44,12 @@ public class DownloadData : MonoBehaviour
             {
                 Debug.Log("Successfully Completed the request. Downloaded the Text");
 
+                // var text = getRequest.downloadHandler.text;
+                // AlbumData data = JsonUtility.FromJson<AlbumData>(text);
+                // textMeshProUGUI.text = data.title;
+
                 _allAlbums = JsonHelper.GetArray<AlbumData>(getRequest.downloadHandler.text);
                 StartCoroutine(GetAlbumData());
-
-
-                // var jsonText = getRequest.downloadHandler.text;
-                // AlbumData newPhoto = JsonUtility.FromJson<AlbumData>(jsonText);
-                // textMeshProUGUI.text = newPhoto.albumId.ToString();
             }
             else
             {
@@ -62,7 +61,7 @@ public class DownloadData : MonoBehaviour
     IEnumerator GetAlbumData()
     {
         var firstData = _allAlbums[0];
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture(firstData.thumbnailUrl+".png");
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(firstData.thumbnailUrl + ".png");
 
         yield return request.SendWebRequest();
 
@@ -71,7 +70,7 @@ public class DownloadData : MonoBehaviour
         else
         {
             // loadedImage.texture = ((DownloadHandlerTexture) request.downloadHandler).texture;
-            
+
             loadedImage.texture = DownloadHandlerTexture.GetContent(request);
             Debug.Log("Successfully Completed the request. Image Loaded");
         }
